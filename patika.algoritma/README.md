@@ -6,4 +6,4 @@
 
 ## Veri yapıları ve algoritma patikası ikinci ödevi
 
-# <img src="images/ders2" height="auto" width="300"  alt="İKİNCİ ÖDEV">
+ <img src="images/ders2" height="auto" width="300"  alt="İKİNCİ ÖDEV">
