@@ -2,7 +2,6 @@
 
 ## Veri yapıları ve algoritma patikası ilk ödevi
 
-<<<<<<< HEAD
 <img src="images/ders1" height="auto" width="300"  alt="İLK ÖDEV">
 
 ## Veri yapıları ve algoritma patikası ikinci ödevi
