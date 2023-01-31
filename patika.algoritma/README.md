@@ -4,4 +4,4 @@
 
 <br>
 
-![Ödev resim](https://i.hizliresim.com/518t4cd.png)
+!(https://i.hizliresim.com/518t4cd.png)
