@@ -132,6 +132,13 @@ function App(): JSX.Element {
 									}`}
 							>
 								<div className="view">
+									<input
+										className="toggle"
+										type="checkbox"
+										checked={todo.completed}
+										onChange={() => toggleTodo(todo.id)}
+									/>
+
 									<label onDoubleClick={() => {
 										setIsEditing(true);
 										setSelectedTodoId(todo.id);
