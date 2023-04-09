@@ -34,6 +34,7 @@ body {
 	font-weight: 300;
 }
 
+
 :focus {
 	outline: 0;
 }
@@ -421,3 +422,5 @@ meta,
 [property="todo"] .view:focus-within button {
 	display: none !important;
 }
+
+

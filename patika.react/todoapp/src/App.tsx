@@ -16,6 +16,8 @@ function App(): JSX.Element {
 	}); // useState hook'u ile todos isimli state oluşturuldu
 	const [newTodo, setNewTodo] = useState<string>(""); // useState hook'u ile newTodo isimli state oluşturuldu
 	const [filter, setFilter] = useState<Filter>("all"); // useState hook'u ile filter isimli state oluşturuldu
+	const [isEditing, setIsEditing] = useState<boolean>(false);
+
 
 	setLocalStorage(setTodos); // localStorage'dan verileri çekmek için useEffect hook'u kullanıldı
 
@@ -31,6 +33,8 @@ function App(): JSX.Element {
 		localStorage.setItem('todos', JSON.stringify([...todos, newTodoItem])); // localStorage'a yeni todo item'ı eklendi
 		setNewTodo("");
 	}; // addTodo fonksiyonu oluşturuldu
+
+
 
 
 	const toggleTodo = (id: number) => {
@@ -74,6 +78,23 @@ function App(): JSX.Element {
 		}
 	}; // getVisibleTodos fonksiyonu oluşturuldu
 
+
+
+	const editLabel = (e: React.ChangeEvent<HTMLInputElement>, id: number) => {
+		const updatedTodos = todos.map((todo) =>
+			todo.id === id ? { ...todo, text: e.target.value } : todo
+		);
+		setTodos(updatedTodos);
+		localStorage.setItem("todos", JSON.stringify(updatedTodos));
+	};
+	const [selectedTodoId, setSelectedTodoId] = useState<number | null>(null);
+
+	const handleLabelDoubleClick = (id: number) => {
+		setIsEditing(true);
+		setSelectedTodoId(id);
+	};
+
+
 	return (
 		<div className="App">
 			<section className="todoapp">
@@ -105,20 +126,33 @@ function App(): JSX.Element {
 
 					<ul className="todo-list">
 						{getVisibleTodos().map((todo) => (
-							<li key={todo.id} className={todo.completed ? "completed" : ""}>
+							<li
+								key={todo.id}
+								className={`${todo.completed ? "completed" : ""} ${isEditing && selectedTodoId === todo.id ? "editing" : ""
+									}`}
+							>
 								<div className="view">
-									<input
-										className="toggle"
-										type="checkbox"
-										checked={todo.completed}
-										onChange={() => toggleTodo(todo.id)}
-									/>
-									<label>{todo.text}</label>
-									<button
-										className="destroy"
-										onClick={() => deleteTodo(todo.id)}
-									></button>
+									<label onDoubleClick={() => {
+										setIsEditing(true);
+										setSelectedTodoId(todo.id);
+									}}>
+										{todo.text}
+									</label>
+									<button className="destroy" onClick={() => deleteTodo(todo.id)} />
 								</div>
+								{isEditing && selectedTodoId === todo.id && (
+									<input
+										type="text"
+										className="edit"
+										value={todo.text}
+										onChange={(e) => editLabel(e, todo.id)}
+										onBlur={() => {
+											setIsEditing(false);
+											setSelectedTodoId(null);
+										}}
+										autoFocus
+									/>
+								)}
 							</li>
 						))}
 					</ul>
